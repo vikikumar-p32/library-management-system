@@ -12,5 +12,4 @@ import java.util.Set;
 public class LoginResponseDTO {
     private String token;
     private String username;
-    private Set<String> roles;
 }

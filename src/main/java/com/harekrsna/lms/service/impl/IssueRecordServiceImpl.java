@@ -10,6 +10,7 @@ import com.harekrsna.lms.service.BookService;
 import com.harekrsna.lms.service.IssueRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,7 +36,8 @@ public class IssueRecordServiceImpl implements IssueRecordService {
                 .getAuthentication()
                 .getName();
 
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         IssueRecord issueRecord = new IssueRecord();
         issueRecord.setIssueDate(LocalDate.now());
